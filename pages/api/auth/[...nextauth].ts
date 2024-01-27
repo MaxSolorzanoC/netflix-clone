@@ -53,6 +53,7 @@ export default NextAuth({
                 );
 
                 if (!isCorrectPassword) {
+                    console.log('Incorrect Password')
                     throw new Error('Incorrect Password');
                 }
 
@@ -63,7 +64,7 @@ export default NextAuth({
     pages: {
         signIn: '/auth',
     },
-    debug: process.env.NODE_ENV === 'development',
+    debug: process.env.NODE_ENV !== "production",
     adapter: PrismaAdapter(prismadb),
     session: {
         strategy: 'jwt',
