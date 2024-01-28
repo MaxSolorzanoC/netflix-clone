@@ -12,8 +12,8 @@ import prismadb from '@/lib/prismadb'
 export default NextAuth({
     providers: [
         GithubProvider({
-            clientId: process.env.GITHUB_ID || '',
-            clientSecret: process.env.GITHUB_SECRET || '',
+            clientId: process.env.GITHUB_ID as string,
+            clientSecret: process.env.GITHUB_SECRET as string,
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -53,7 +53,6 @@ export default NextAuth({
                 );
 
                 if (!isCorrectPassword) {
-                    console.log('Incorrect Password')
                     throw new Error('Incorrect Password');
                 }
 
@@ -64,7 +63,8 @@ export default NextAuth({
     pages: {
         signIn: '/auth',
     },
-    debug: process.env.NODE_ENV !== "production",
+    debug: true,
+    // debug: process.env.NODE_ENV !== "production",
     adapter: PrismaAdapter(prismadb),
     session: {
         strategy: 'jwt',
